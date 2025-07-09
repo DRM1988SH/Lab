@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام المختبر البيطري</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- شاشة الترحيب -->
+  <div id="welcomeScreen">
+    <img src="https://www.freeiconspng.com/uploads/3d-camel-icon-12.png" alt="" class="camel-logo">
+  </div>
+
+  <!-- شاشة تسجيل الدخول -->
+  <div id="loginScreen" class="screen">
+    <h2>تسجيل الدخول</h2>
+    <div id="loginErrors" class="error-message"></div>
+    <input type="text" id="empId" placeholder="الرقم الوظيفي" required>
+    <button onclick="login()">دخول</button>
+  </div>
+
+  <!-- شاشة الداشبورد -->
+  <div id="dashboardScreen" class="screen">
+    <button onclick="logout()" class="btn-back">تسجيل الخروج</button>
+    <h2 id="userWelcome">مرحباً</h2>
+    <div class="dashboard-buttons">
+      <button onclick="openScreen('entryScreen')">🧪 إدخال البيانات</button>
+      <button onclick="openScreen('reportScreen')">📋 عرض التقرير</button>
+      <button onclick="openScreen('settingsScreen')" id="settingsBtn">⚙️ الإعدادات</button>
+      <button onclick="openScreen('usersScreen')" id="usersBtn">👥 إدارة المستخدمين</button>
+    </div>
+  </div>
+
+  <!-- شاشة إدخال البيانات -->
+  <div id="entryScreen" class="screen">
+    <button onclick="goBack()" class="btn-back"> للقائمة الرئيسية</button>
+    <h2>إدخال البيانات</h2>
+    <div id="entryErrors" class="error-message"></div>
+    <form id="dataForm">
+      <input type="date" id="dateInput" required>
+      <input type="text" id="siteName" readonly required>
+      <input type="text" id="barnName" placeholder="اسم الحظيرة" required>
+      <input type="text" id="licenseNo" placeholder="رقم الرخصة التجارية">
+      <select id="animalType" required></select>
+      <select id="gender" required>
+        <option value="">اختر الجنس</option>
+        <option value="ذكر">ذكر</option>
+        <option value="أنثى">أنثى</option>
+      </select>
+      <select id="sampleType" required></select>
+      <select id="testType" required>
+        <option value="">اختر نوع الاختبار</option>
+        <option value="فحص دم">فحص دم</option>
+        <option value="فحص بول">فحص بول</option>
+        <option value="فحص براز">فحص براز</option>
+        <option value="فحص أنسجة">فحص أنسجة</option>
+      </select>
+      <select id="resultType" required></select>
+      <textarea id="notes" placeholder="ملاحظات"></textarea>
+      <button type="submit">💾 حفظ</button>
+    </form>
+  </div>
+
+  <!-- شاشة التقرير -->
+  <div id="reportScreen" class="screen">
+    <button onclick="goBack()" class="btn-back"> للقائمة الرئيسية</button>
+    <h2>📋 التقرير</h2>
+    <div class="report-filters">
+      <div>
+        <label for="fromDate">من:</label>
+        <input type="date" id="fromDate">
+      </div>
+      <div>
+        <label for="toDate">إلى:</label>
+        <input type="date" id="toDate">
+      </div>
+      <button onclick="generateReport()">عرض التقرير</button>
+    </div>
+    <div id="reportContent"></div>
+  </div>
+
+  <!-- شاشة الإعدادات -->
+  <div id="settingsScreen" class="screen">
+    <button onclick="goBack()" class="btn-back">  للقائمة الرئيسية</button>
+    <h2>⚙️ الإعدادات</h2>
+    <div id="settingsErrors" class="error-message"></div>
+    <div class="settings-group">
+      <label>أنواع العينات:</label>
+      <textarea id="sampleList" placeholder="مثال: دم, بول, خزعة"></textarea>
+    </div>
+    <div class="settings-group">
+      <label>أنواع الاختبارات:</label>
+      <textarea id="testList" placeholder="مثال: فحص دم, فحص بول, فحص أنسجة"></textarea>
+    </div>
+    <div class="settings-group">
+      <label>نتائج الفحص:</label>
+      <textarea id="resultList" placeholder="مثال: سليم, مريض, غير محدد"></textarea>
+    </div>
+    <button onclick="saveSettings()">💾 حفظ الإعدادات</button>
+  </div>
+
+  <!-- شاشة المستخدمين -->
+  <div id="usersScreen" class="screen">
+    <button onclick="goBack()" class="btn-back"> للقائمة الرئيسية</button>
+    <h2>👥 إدارة المستخدمين</h2>
+    <div id="userErrors" class="error-message"></div>
+    <div class="user-form">
+      <input type="text" id="newEmpId" placeholder="رقم وظيفي جديد" required>
+      <input type="text" id="newName" placeholder="اسم المستخدم" required>
+      <select id="newType" required>
+        <option value="">اختر النوع</option>
+        <option value="سوق">سوق</option>
+        <option value="مسلخ">مسلخ</option>
+        <option value="مسؤول">مسؤول</option>
+      </select>
+      <input type="text" id="newSite" placeholder="اسم الموقع" required>
+      <button onclick="addUser()">➕ إضافة مستخدم</button>
+    </div>
+    <div id="usersList"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
