@@ -1,0 +1,261 @@
+/* الخطوط العامة */
+body {
+  font-family: "Cairo", Tahoma, sans-serif;
+  direction: rtl;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom left, #6a11cb, #2575fc);
+  color: #222;
+  text-align: center;
+  min-height: 100vh;
+}
+
+/* الشاشات الرئيسية */
+.screen {
+  display: none;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 800px;
+  margin: 30px auto;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  color: #333;
+  font-weight: 700;
+}
+
+.screen.visible {
+  display: block;
+}
+
+.screen h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* شاشة الترحيب */
+#welcomeScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom left, #6a11cb, #2575fc);
+}
+
+.camel-logo {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* حقول الإدخال */
+input, select, textarea {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  font-family: "Cairo", sans-serif;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* الأزرار */
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: "Cairo", sans-serif;
+  margin-bottom: 15px;
+}
+
+button:hover {
+  background: #4338ca;
+}
+
+/* زر الرجوع */
+.btn-back {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: auto;
+  padding: 5px 10px;
+  background: #f1f1f1;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+/* أزرار الداشبورد */
+.dashboard-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.dashboard-buttons button {
+  padding: 20px;
+  font-size: 1.1rem;
+}
+
+/* رسائل الخطأ */
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* شاشة التقرير */
+.report-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+  align-items: Right;
+  justify-content: Right;
+}
+
+.report-filters > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.report-filters label {
+  white-space: nowrap;
+}
+
+#reportContent {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+#reportContent table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-weight: normal;
+}
+
+#reportContent th, #reportContent td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-weight: normal;
+}
+
+#reportContent th {
+  background-color: #4f46e5;
+  color: white;
+  font-weight: bold;
+}
+
+#reportContent tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* شاشة الإعدادات */
+.settings-group {
+  margin-bottom: 20px;
+}
+
+.settings-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* شاشة المستخدمين */
+.user-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.user-form button {
+  grid-column: span 2;
+}
+
+#usersList {
+  margin-top: 20px;
+}
+
+#usersList table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#usersList th, #usersList td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+#usersList th {
+  background-color: #4f46e5;
+  color: white;
+}
+
+#usersList .btn-edit {
+  background: #f39c12;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+#usersList .btn-delete {
+  background: #e74c3c;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+/* التصميم المتجاوب */
+@media (max-width: 768px) {
+  .screen {
+    margin: 15px;
+    padding: 20px;
+  }
+  
+  .dashboard-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .user-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .report-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .report-filters > div {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
