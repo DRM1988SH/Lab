@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>نظام المختبر البيطري</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
+  <link rel="stylesheet" href="">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- شاشة الترحيب -->
   <div id="welcomeScreen">
-    <img src="https://www.freeiconspng.com/uploads/3d-camel-icon-12.png" alt="" class="camel-logo">
+    <img src="" alt="" class="logo-3d">
+    <h1 class="welcome-title">نظام المختبر البيطري</h1>
   </div>
 
   <!-- شاشة تسجيل الدخول -->
@@ -35,14 +36,14 @@
 
   <!-- شاشة إدخال البيانات -->
   <div id="entryScreen" class="screen">
-    <button onclick="goBack()" class="btn-back"> للقائمة الرئيسية</button>
+    <button onclick="goBack()" class="btn-back">  للقائمة الرئيسية</button>
     <h2>إدخال البيانات</h2>
     <div id="entryErrors" class="error-message"></div>
     <form id="dataForm">
       <input type="date" id="dateInput" required>
       <input type="text" id="siteName" readonly required>
-      <input type="text" id="barnName" placeholder="اسم الحظيرة" required>
-      <input type="text" id="licenseNo" placeholder="رقم الرخصة التجارية">
+      <input type="text" id="barnName" placeholder="مسلخ" required>
+      <input type="text" id="licenseNo" placeholder="رقم العينة">
       <select id="animalType" required></select>
       <select id="gender" required>
         <option value="">اختر الجنس</option>
@@ -65,7 +66,7 @@
 
   <!-- شاشة التقرير -->
   <div id="reportScreen" class="screen">
-    <button onclick="goBack()" class="btn-back"> للقائمة الرئيسية</button>
+    <button onclick="goBack()" class="btn-back">  للقائمة الرئيسية</button>
     <h2>📋 التقرير</h2>
     <div class="report-filters">
       <div>
@@ -103,7 +104,7 @@
 
   <!-- شاشة المستخدمين -->
   <div id="usersScreen" class="screen">
-    <button onclick="goBack()" class="btn-back"> للقائمة الرئيسية</button>
+    <button onclick="goBack()" class="btn-back">  للقائمة الرئيسية</button>
     <h2>👥 إدارة المستخدمين</h2>
     <div id="userErrors" class="error-message"></div>
     <div class="user-form">
