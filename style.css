@@ -4,7 +4,7 @@ body {
   direction: rtl;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom left, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
   color: #222;
   text-align: center;
   min-height: 100vh;
@@ -17,7 +17,7 @@ body {
   backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 30px;
-  max-width: 800px;
+  max-width: 900px;
   margin: 30px auto;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -43,20 +43,21 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom left, #6a11cb, #2575fc);
 }
 
-.camel-logo {
-  width: 200px;
-  height: auto;
+.logo-3d {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
   filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
   animation: float 3s ease-in-out infinite;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+.welcome-title {
+  color: white;
+  font-size: 2.5rem;
+  margin-top: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* حقول الإدخال */
@@ -129,53 +130,115 @@ button:hover {
   text-align: center;
 }
 
-/* شاشة التقرير */
-.report-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 15px;
-  align-items: Right;
-  justify-content: Right;
-}
-
-.report-filters > div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.report-filters label {
-  white-space: nowrap;
-}
-
+/* تنسيقات التقرير الاحترافية */
 #reportContent {
-  margin-top: 20px;
+  margin-top: 30px;
   overflow-x: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 #reportContent table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
-  font-weight: normal;
+  font-family: 'Cairo', sans-serif;
 }
 
-#reportContent th, #reportContent td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-  font-weight: normal;
+#reportContent thead {
+  background: linear-gradient(to right, #4f46e5, #3b82f6);
+  color: white;
 }
 
 #reportContent th {
-  background-color: #4f46e5;
-  color: white;
-  font-weight: bold;
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+#reportContent td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+  font-size: 0.85rem;
 }
 
 #reportContent tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
+}
+
+#reportContent tr:hover {
+  background-color: #f1f1f1;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.report-title {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 700;
+}
+
+.report-meta {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.print-btn {
+  background: #4CAF50;
+  padding: 8px 20px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-family: 'Cairo';
+  margin-left: 10px;
+}
+
+.export-btn {
+  background: #2196F3;
+  padding: 8px 20px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-family: 'Cairo';
+}
+
+/* تنسيقات إضافية للتقرير */
+.text-success {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.text-danger {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.text-warning {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+}
+
+.no-data img {
+  opacity: 0.7;
+  margin-bottom: 20px;
 }
 
 /* شاشة الإعدادات */
@@ -257,5 +320,36 @@ button:hover {
   .report-filters > div {
     flex-direction: column;
     align-items: stretch;
+  }
+  
+  .report-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .report-header div:last-child {
+    margin-top: 15px;
+    align-self: flex-end;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #reportContent, #reportContent * {
+    visibility: visible;
+  }
+  #reportContent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
   }
 }
