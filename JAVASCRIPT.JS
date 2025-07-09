@@ -13,10 +13,10 @@ let users = [
     }
   },
   {
-    empId: "10001",
-    name: "فني المختبر",
-    type: "فني",
-    site: "فرع المختبر 1",
+    empId: "70060",
+    name: "صافي الدين احمد",
+    type: "سوق المواشي ",
+    site: "سوق المواشي مدينة غياثي",
     permissions: {
       manageUsers: false,
       manageSettings: false,
@@ -46,7 +46,7 @@ let settings = {
 // تهيئة التطبيق عند التحميل
 function startApp() {
   showScreen("welcomeScreen");
-  setTimeout(() => showScreen("loginScreen"), 2000);
+  setTimeout(() => showScreen("loginScreen"), 200);
 
   // تحميل البيانات من localStorage إن وجدت
   loadFromLocalStorage();
@@ -253,7 +253,7 @@ function saveEntry() {
   goBack();
 }
 
-// توليد التقرير
+// توليد التقرير المحترف
 function generateReport() {
   const fromDate = document.getElementById("fromDate").value;
   const toDate = document.getElementById("toDate").value;
@@ -269,48 +269,113 @@ function generateReport() {
   });
 
   if (filteredEntries.length === 0) {
-    reportContent.innerHTML = "<p>لا توجد بيانات متاحة للفترة المحددة</p>";
+    reportContent.innerHTML = `
+      <div class="no-data">
+        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" width="100">
+        <p>لا توجد بيانات متاحة للفترة المحددة</p>
+      </div>
+    `;
     return;
   }
 
+  const reportDate = new Date().toLocaleDateString('ar-EG');
+  
   let html = `
+    <div class="report-header">
+      <div>
+        <div class="report-title">تقرير المختبر البيطري</div>
+        <div class="report-meta">الفترة من ${fromDate} إلى ${toDate} - تاريخ التقرير: ${reportDate}</div>
+      </div>
+      <div>
+        <button class="export-btn" onclick="exportToExcel()">تصدير لإكسل</button>
+        <button class="print-btn" onclick="printReport()">طباعة التقرير</button>
+      </div>
+    </div>
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th>التاريخ</th>
           <th>الموقع</th>
-          <th>الحظيرة</th>
           <th>نوع الحيوان</th>
-          <th>الجنس</th>
-          <th>نوع العينة</th>
           <th>نوع الاختبار</th>
           <th>النتيجة</th>
           <th>ملاحظات</th>
-          <th>مدخل البيانات</th>
         </tr>
       </thead>
       <tbody>
   `;
 
-  filteredEntries.forEach(entry => {
+  filteredEntries.forEach((entry, index) => {
     html += `
       <tr>
+        <td>${index + 1}</td>
         <td>${entry.date}</td>
         <td>${entry.site}</td>
-        <td>${entry.barnName}</td>
         <td>${entry.animalType}</td>
-        <td>${entry.gender}</td>
-        <td>${entry.sampleType}</td>
         <td>${entry.testType}</td>
-        <td>${entry.resultType}</td>
+        <td class="${entry.resultType === 'سليم' ? 'text-success' : entry.resultType === 'مريض' ? 'text-danger' : 'text-warning'}">
+          ${entry.resultType}
+        </td>
         <td>${entry.notes || '-'}</td>
-        <td>${entry.enteredBy}</td>
       </tr>
     `;
   });
 
   html += `</tbody></table>`;
   reportContent.innerHTML = html;
+}
+
+// دالة الطباعة
+function printReport() {
+  const printContent = document.getElementById("reportContent").innerHTML;
+  const originalContent = document.body.innerHTML;
+  
+  document.body.innerHTML = `
+    <div style="padding:20px;font-family:'Cairo'">
+      <h1 style="text-align:center;margin-bottom:30px">تقرير المختبر البيطري</h1>
+      ${printContent}
+    </div>
+  `;
+  
+  window.print();
+  document.body.innerHTML = originalContent;
+  location.reload();
+}
+
+// دالة التصدير لإكسل
+function exportToExcel() {
+  const table = document.querySelector("#reportContent table");
+  if (!table) {
+    alert("لا يوجد بيانات للتصدير");
+    return;
+  }
+
+  let csv = [];
+  const rows = table.querySelectorAll("tr");
+  
+  for (let i = 0; i < rows.length; i++) {
+    let row = [], cols = rows[i].querySelectorAll("td, th");
+    
+    for (let j = 0; j < cols.length; j++) {
+      row.push(cols[j].innerText);
+    }
+    
+    csv.push(row.join(","));
+  }
+
+  const csvContent = csv.join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  
+  link.setAttribute("href", url);
+  link.setAttribute("download", `تقرير_المختبر_${new Date().toISOString().slice(0,10)}.csv`);
+  link.style.visibility = "hidden";
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 // تحميل الإعدادات
